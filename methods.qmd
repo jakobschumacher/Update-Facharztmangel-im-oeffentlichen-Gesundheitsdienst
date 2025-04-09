@@ -1,0 +1,145 @@
+---
+title: 'Facharztmangel im Öffentlichen Gesundheitsdienst'
+author: "Jakob Schumacher, Peter Tinnemann"
+date: "04. April 2025"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, '20200228_versionuntil2018.html'))})
+output:
+  html_document: 
+    theme: flat
+    toc: true
+    toc_depth: 1
+  pdf_document: default
+  word_document: default
+---
+
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(fig.width = 9, fig.height = 9, echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
+pacman::p_load(tidyverse, ggthemes, plotly, gridExtra, knitr, lubridate)
+```
+
+
+```{r function, echo=FALSE}
+# This function reads in gbe-files
+read_gbe_files <- function(file, variables) {
+
+  file_with_folder = paste0("data/", file)
+  
+  # Preread thte data to find parameters vor read_csv2
+  testread = readLines(file_with_folder, encoding = "UTF-8")
+  beginning <- grep(pattern = "2018", x = testread) - 1
+  end <- grep(pattern = "\\*\\*\\*", x = testread)[2] - beginning - 3
+  
+  # Actually read the file with parameters
+  data <- suppressMessages(
+          suppressWarnings(
+              read_csv2(file = file_with_folder, 
+                    skip = beginning,
+                    n_max = end,
+                    locale = readr::locale(encoding = "ISO-8859-1"))
+          )) %>% 
+    # Erase last blank column
+    select(-matches("X\\d\\d")) %>%  
+    # Delete columns that contain only NA
+    select_if(~mean(is.na(.)) != 1) %>% 
+    # Fill the variables 
+    fill(starts_with("..."), .direction = "down") 
+    
+  # adjust names with the argument of this function (variable) to replace the "..1" variable names
+    names(data) <- c(variables, names(data)[(1+length(variables)):length(names(data))])
+    
+data <- data %>%
+    # transfer to long format (critical step)
+    gather(key = "Jahr", value = "n", -variables)
+
+  
+  data <- data %>%
+    mutate_all(list(~str_replace(., "Berlin, bis 1990 nur Berlin-West", "Berlin"))) %>%
+    mutate_all(list(~str_replace(., fixed("Gebiets-/Facharztbezeichnungen insgesamt (incl. ohne Gebiet)"), "Gesamt"))) %>% 
+    mutate_all(list(~str_replace(., fixed("Unter 35 Jahre"), "34 Jahre und jünger")))
+
+  data <- data %>% 
+    mutate_at(vars(-n, -Jahr), factor) %>% 
+    mutate(Jahr = paste0(Jahr, "-12-31")) %>% 
+    mutate(Jahr = lubridate::ymd(Jahr)) %>% 
+    mutate(n = as.numeric(n)) %>% 
+    mutate(n = ifelse(is.na(n), 0, n))
+  
+  data
+} 
+```
+
+# Datenquelle
+
+Die Daten stammen von den Ärztekammern. Sie werden bereitgestellt auf [http://www.gbe-bund.de](http://www.gbe-bund.de) unter dem Tabellennamen: ["Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"](http://www.gbe-bund.de/gbe10/express.prc_expr?p_aid=30416728&p_uid=gast&p_sprachkz=D&p_var=0&nummer=656&p_indsp=&p_ityp=H&p_hlpnr=3&p_lfd_nr=1&p_sprache=D&p_news=&p_janein=J) 
+
+Beschreibung der Methodik der Statistik der Mitglieder der (Landes-) Ärztekammern (Ärztestatistik) von gbe-bund.de
+
+* _In den Heilberufsgesetzen der Bundesländer ist festgelegt, dass alle Ärzte, die in einem bestimmten Bundesland tätig sind oder, falls sie ihren Beruf nicht ausüben, ihren gewöhnlichen Aufenthalt haben, Mitglied der jeweiligen (Landes-) Ärztekammer sein müssen. Die Kammern haben über ihre Mitglieder ein Verzeichnis zu führen, in das bestimmte Angaben einzutragen sind. Auf der Basis dieser Mitgliederverzeichnisse erstellen die (Landes-) Ärztekammern zum 31. Dezember jeden Jahres Auswertungen zu ausgewählten Aspekten der Berufspolitik, die sie an die Bundesärztekammer weiterleiten. Die Bundesärztekammer (BÄK), Arbeitsgemeinschaft der deutschen Ärztekammern, ist die Berufsvertretung aller deutschen Ärzte auf Bundesebene. Die Bundesärztekammer fasst diese Meldungen zum Bundesergebnis zusammen und erstellt somit die Ärztestatistik._
+
+Beschreibung der Auswahl
+
+1. Auswahl der Tabelle "Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"  auf GBE-Bund.de
+2. Einschränkung auf der Seite "Werteauswahl" auf die Jahre 1998 bis 2018
+3. Einschränkung auf der Seite "Werteauswahl" unter "Tätigkeitsbereiche" auf "mit ärztlicher Tätigkeit"
+4. Einschränkung der Facharztrichtungen
+    1. Wenn "alle Facharztrichtungen" beschrieben sind wurde auf der Seite "Werteauswahl" die folgenden ausgewählt: Allgemeinmedizin, Anästhesiologie, Anatomie, Arbeitsmedizin, Augenheilkunde, Biochemie, Chirurgie, Frauenheilkunde und Geburtshilfe, Hals-Nasen-Ohrenheilkunde, Haut- und Geschlechtskrankheiten, Humangenetik, Hygiene und Umweltmedizin, Innere Medizin, Kinder- und Jugendmedizin, Kinder- und Jugendpsychiatrie und -psychotherapie, Laboratoriumsmedizin, Mikrobiologie Virologie Infektionsepidemiologie, Mund-Kiefer-Gesichtschirurgie, Neurochirurgie, Neurologie, Nuklearmedizin, Öffentliches Gesundheitswesen, Pathologie, Pharmakologie, Physikalische und Rehabilitative Medizin, Physiologie, Psychiatrie und Psychotherapie, Psychosomatische Medizin und Psychotherapie, Radiologie, Rechtsmedizin, Strahlentherapie, Transfusionsmedizin, Urologie
+    2. Wenn "Fachärzte im öffentlichen Gesundheitswesen" beschrieben ist wurde nur auf der Seite "Werteauswahl" ausgewählt: Öffentliches Gesundheitswesen
+
+
+# Änderung Gesamtanzahl {.tabset}
+Kummulierte prozentuale Änderung der Anzahl an tätigen Fachärzt/innen von 1998 bis 2018 nach Ärztlicher Tätigkeit unterschieden zwischen Gesamtheit aller Facharztrichtungen, in Behöroden/Körperschaften o.ä. und Öffentliches Gesundheitswesen
+
+## Abbildung
+```{r, Abbildung 1}
+data <- read_gbe_files(file = "Taetigkeit_Facharzt.csv", variables = c("Facharzt", "Taetigkeit"))
+
+gesamttaetige <- data %>% 
+  filter(Taetigkeit == "Mit ärztlicher Tätigkeit") %>% 
+  group_by(Jahr) %>% 
+  summarise(n = sum(n)) %>% 1
+  mutate(aerztliche_taetigkeit = "Gesamt")
+  
+behoerdlichetaetige <- data %>% 
+  filter(Taetigkeit == "In Behörden/Körperschaften u. a.") %>% 
+  group_by(Jahr) %>% 
+  summarise(n = sum(n)) %>% 
+  mutate(aerztliche_taetigkeit = "In Behörden/Körperschaften u. a.")
+
+oegwtaetige <- data %>% 
+  filter(Taetigkeit == "Mit ärztlicher Tätigkeit") %>% 
+  filter(Facharzt == "Öffentliches Gesundheitswesen") %>% 
+  group_by(Jahr) %>% 
+  summarise(n = sum(n)) %>% 
+  mutate(aerztliche_taetigkeit = "Öffentliches Gesundheitswesen")
+
+data <- rbind(oegwtaetige, behoerdlichetaetige, gesamttaetige)
+
+data <- data %>% 
+  arrange(aerztliche_taetigkeit, Jahr) %>% 
+  group_by(aerztliche_taetigkeit) %>% 
+  mutate(change = n - lag(n)) %>% 
+  mutate(change = replace_na(change, 0)) %>% 
+  mutate(cum_change = cumsum(change)) %>%  
+  mutate(origin = n - cum_change) %>% 
+  mutate(cum_perc_change = (100 * (n - origin)) / origin) 
+
+p1 <- ggplot(data, aes(Jahr, cum_perc_change, group = aerztliche_taetigkeit)) +
+  geom_line(color='steelblue',aes(linetype = aerztliche_taetigkeit), size = 1.5) +
+  theme_bw(base_size = 14) +
+  ylab("Kummulierte prozentuale Änderung") +
+  theme(axis.text.x  = element_text(angle = 90, vjust = 0)) +
+  labs(linetype = "", color = "Ärztliche Tätigkeit") +
+  scale_linetype_manual(values = c("dotdash", "dotted", "solid"), breaks = c("Gesamt", "In Behörden/Körperschaften u. a.", "Öffentliches Gesundheitswesen"), labels = c("Alle Fachärzt/innen", "Fachärzte/innen in Körperschaften", "Fachärzte/innen im ÖGW")) +
+  theme(legend.position = "bottom", legend.key.width = unit(1.8,"cm")) +
+  guides(linetype = guide_legend(override.aes = list(size = 2))) 
+      
+
+ggsave(p1, filename = paste0("graphs/", Sys.Date(), "_Abbildung_1"), device = "jpg", width = 28, height = 14, units = "cm", dpi = 300)
+
+p1
+```
