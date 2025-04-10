@@ -24,53 +24,68 @@ pacman::p_load(tidyverse, ggthemes, plotly, gridExtra, knitr, lubridate)
 
 
 ```{r function, echo=FALSE}
-# This function reads in gbe-files
 read_gbe_files <- function(file, variables) {
+  file_path <- file
 
-  file_with_folder = paste0("data/", file)
-  
-  # Preread thte data to find parameters vor read_csv2
-  testread = readLines(file_with_folder, encoding = "UTF-8")
-  beginning <- grep(pattern = "2018", x = testread) - 1
-  end <- grep(pattern = "\\*\\*\\*", x = testread)[2] - beginning - 3
-  
-  # Actually read the file with parameters
-  data <- suppressMessages(
-          suppressWarnings(
-              read_csv2(file = file_with_folder, 
-                    skip = beginning,
-                    n_max = end,
-                    locale = readr::locale(encoding = "ISO-8859-1"))
-          )) %>% 
-    # Erase last blank column
-    select(-matches("X\\d\\d")) %>%  
-    # Delete columns that contain only NA
-    select_if(~mean(is.na(.)) != 1) %>% 
-    # Fill the variables 
-    fill(starts_with("..."), .direction = "down") 
-    
-  # adjust names with the argument of this function (variable) to replace the "..1" variable names
-    names(data) <- c(variables, names(data)[(1+length(variables)):length(names(data))])
-    
-data <- data %>%
-    # transfer to long format (critical step)
-    gather(key = "Jahr", value = "n", -variables)
+  # Find data boundaries using efficient pattern matching
+  header_lines <- readLines(file_path, encoding = "UTF-8")
+  suppressWarnings(data_start <- which.max(grepl("2018", header_lines)) - 1L)
+  suppressWarnings(data_end <- which(grepl("\\*\\*\\*", header_lines))[2] - data_start - 3L)
 
-  
-  data <- data %>%
-    mutate_all(list(~str_replace(., "Berlin, bis 1990 nur Berlin-West", "Berlin"))) %>%
-    mutate_all(list(~str_replace(., fixed("Gebiets-/Facharztbezeichnungen insgesamt (incl. ohne Gebiet)"), "Gesamt"))) %>% 
-    mutate_all(list(~str_replace(., fixed("Unter 35 Jahre"), "34 Jahre und jünger")))
+  # Read data with precise column specifications
+  data <- suppressWarnings(
+    readr::read_delim(
+      file = file_path,
+      delim = ";",
+      skip = data_start,
+      n_max = data_end,
+      locale = locale(encoding = "ISO-8859-1"),
+      show_col_types = FALSE,
+      col_types = cols(.default = col_character())
+    ))
 
-  data <- data %>% 
-    mutate_at(vars(-n, -Jahr), factor) %>% 
-    mutate(Jahr = paste0(Jahr, "-12-31")) %>% 
-    mutate(Jahr = lubridate::ymd(Jahr)) %>% 
-    mutate(n = as.numeric(n)) %>% 
-    mutate(n = ifelse(is.na(n), 0, n))
+  data <- data  %>%
+      mutate(across(matches("^\\d{4}$"), ~str_replace_all(.x, " ", ""))) |>
+      mutate(across(matches("^\\d{4}$"), ~str_replace_all(.x, "\\.", ""))) |>
+      mutate(across(matches("^\\d{4}$"), ~str_replace_all(.x, ",", "."))) |>
+      mutate(across(matches("^\\d{4}$"), ~str_replace_all(.x, ":", ""))) |>
+      mutate(across(matches("^\\d{4}$"), ~str_replace_all(.x, "–", ""))) |>
+      select(-matches("^X\\d{2}$")) |>  # Remove auto-generated columns
+      discard(~mean(is.na(.x)) == 1) |>  # Remove empty columns
+      tidyr::fill(starts_with("..."), .direction = "down")
   
-  data
-} 
+
+ # Rename the first two columns
+  data <- data |>
+   rename_with(~ c(variables, tail(names(data), -length(variables))))
+
+  # Transform data into long format
+  data <- data |>
+  mutate(across(matches("^\\d{4}$"), as.character)) |>
+  pivot_longer(
+    cols = -all_of(variables),
+    names_to = "Jahr",
+    values_to = "n"
+  ) 
+  
+  data <- data |>
+    mutate_all(list(~str_replace(., "Berlin, bis 1990 nur Berlin-West", "Berlin"))) |>
+    mutate_all(list(~str_replace(., fixed("Gebiets-/Facharztbezeichnungen insgesamt (incl. ohne Gebiet)"), "Gesamt"))) |> 
+    mutate_all(list(~str_replace(., fixed("Unter 35 Jahre"), "34 Jahre und jünger"))) |>
+    mutate_all(list(~str_trim(.))) # Remove leading and trailing whitespace  
+  
+  data <- data |> 
+    mutate_at(vars(-n, -Jahr), factor) |> 
+    mutate(Jahr = paste0(Jahr, "-12-31")) |> 
+    mutate(Jahr = lubridate::ymd(Jahr)) 
+
+  data <- data |>  
+    filter(n!="") |>
+    filter(n!="-") |>
+    mutate(n = as.numeric(n)) 
+
+  return(data)
+}
 ```
 
 # Datenquelle
@@ -96,40 +111,40 @@ Kummulierte prozentuale Änderung der Anzahl an tätigen Fachärzt/innen von 199
 
 ## Abbildung
 ```{r, Abbildung 1}
-data <- read_gbe_files(file = "Taetigkeit_Facharzt.csv", variables = c("Facharzt", "Taetigkeit"))
+data <- read_gbe_files(file = "data/Taetigkeit_Facharzt.csv", variables = c( "Facharzt", "Taetigkeit"))
 
-gesamttaetige <- data %>% 
-  filter(Taetigkeit == "Mit ärztlicher Tätigkeit") %>% 
-  group_by(Jahr) %>% 
-  summarise(n = sum(n)) %>% 1
+gesamttaetige <- data |> 
+  dplyr::filter(Taetigkeit == "Mit ärztlicher Tätigkeit") |> 
+  group_by(Jahr) |> 
+  summarise(n = sum(n)) |> 
   mutate(aerztliche_taetigkeit = "Gesamt")
   
-behoerdlichetaetige <- data %>% 
-  filter(Taetigkeit == "In Behörden/Körperschaften u. a.") %>% 
-  group_by(Jahr) %>% 
-  summarise(n = sum(n)) %>% 
+behoerdlichetaetige <- data |> 
+  filter(Taetigkeit == "In Behörden/Körperschaften u. a.") |> 
+  group_by(Jahr) |> 
+  summarise(n = sum(n)) |> 
   mutate(aerztliche_taetigkeit = "In Behörden/Körperschaften u. a.")
 
-oegwtaetige <- data %>% 
-  filter(Taetigkeit == "Mit ärztlicher Tätigkeit") %>% 
-  filter(Facharzt == "Öffentliches Gesundheitswesen") %>% 
-  group_by(Jahr) %>% 
-  summarise(n = sum(n)) %>% 
+oegwtaetige <- data |> 
+  filter(Taetigkeit == "Mit ärztlicher Tätigkeit") |> 
+  filter(Facharzt == "Öffentliches Gesundheitswesen") |> 
+  group_by(Jahr) |> 
+  summarise(n = sum(n)) |> 
   mutate(aerztliche_taetigkeit = "Öffentliches Gesundheitswesen")
 
 data <- rbind(oegwtaetige, behoerdlichetaetige, gesamttaetige)
 
-data <- data %>% 
-  arrange(aerztliche_taetigkeit, Jahr) %>% 
-  group_by(aerztliche_taetigkeit) %>% 
-  mutate(change = n - lag(n)) %>% 
-  mutate(change = replace_na(change, 0)) %>% 
-  mutate(cum_change = cumsum(change)) %>%  
-  mutate(origin = n - cum_change) %>% 
+data <- data |> 
+  arrange(aerztliche_taetigkeit, Jahr) |> 
+  group_by(aerztliche_taetigkeit) |> 
+  mutate(change = n - lag(n)) |> 
+  mutate(change = replace_na(change, 0)) |> 
+  mutate(cum_change = cumsum(change)) |>  
+  mutate(origin = n - cum_change) |> 
   mutate(cum_perc_change = (100 * (n - origin)) / origin) 
 
 p1 <- ggplot(data, aes(Jahr, cum_perc_change, group = aerztliche_taetigkeit)) +
-  geom_line(color='steelblue',aes(linetype = aerztliche_taetigkeit), size = 1.5) +
+  geom_line(color='steelblue',aes(linetype = aerztliche_taetigkeit), linewidth = 1.5) +
   theme_bw(base_size = 14) +
   ylab("Kummulierte prozentuale Änderung") +
   theme(axis.text.x  = element_text(angle = 90, vjust = 0)) +
@@ -139,7 +154,7 @@ p1 <- ggplot(data, aes(Jahr, cum_perc_change, group = aerztliche_taetigkeit)) +
   guides(linetype = guide_legend(override.aes = list(size = 2))) 
       
 
-ggsave(p1, filename = paste0("graphs/", Sys.Date(), "_Abbildung_1"), device = "jpg", width = 28, height = 14, units = "cm", dpi = 300)
+ggsave(p1, filename = paste0("graphs/", Sys.Date(), "_Abbildung_1.jpg"), device = "jpg", width = 28, height = 14, units = "cm", dpi = 300)
 
 p1
 ```
