@@ -2,11 +2,6 @@
 title: 'Facharztmangel im Öffentlichen Gesundheitsdienst'
 author: "Jakob Schumacher, Peter Tinnemann"
 date: "04. April 2025"
-knit: (function(input_file, encoding) {
-  out_dir <- 'docs';
-  rmarkdown::render(input_file,
- encoding=encoding,
- output_file=file.path(dirname(input_file), out_dir, '20200228_versionuntil2018.html'))})
 output:
   html_document: 
     theme: flat
@@ -29,7 +24,7 @@ read_gbe_files <- function(file, variables) {
 
   # Find data boundaries using efficient pattern matching
   header_lines <- readLines(file_path, encoding = "UTF-8")
-  suppressWarnings(data_start <- which.max(grepl("2018", header_lines)) - 1L)
+  suppressWarnings(data_start <- which.max(grepl("2023", header_lines)) - 1L)
   suppressWarnings(data_end <- which(grepl("\\*\\*\\*", header_lines))[2] - data_start - 3L)
 
   # Read data with precise column specifications
@@ -96,54 +91,106 @@ Beschreibung der Methodik der Statistik der Mitglieder der (Landes-) Ärztekamme
 
 * _In den Heilberufsgesetzen der Bundesländer ist festgelegt, dass alle Ärzte, die in einem bestimmten Bundesland tätig sind oder, falls sie ihren Beruf nicht ausüben, ihren gewöhnlichen Aufenthalt haben, Mitglied der jeweiligen (Landes-) Ärztekammer sein müssen. Die Kammern haben über ihre Mitglieder ein Verzeichnis zu führen, in das bestimmte Angaben einzutragen sind. Auf der Basis dieser Mitgliederverzeichnisse erstellen die (Landes-) Ärztekammern zum 31. Dezember jeden Jahres Auswertungen zu ausgewählten Aspekten der Berufspolitik, die sie an die Bundesärztekammer weiterleiten. Die Bundesärztekammer (BÄK), Arbeitsgemeinschaft der deutschen Ärztekammern, ist die Berufsvertretung aller deutschen Ärzte auf Bundesebene. Die Bundesärztekammer fasst diese Meldungen zum Bundesergebnis zusammen und erstellt somit die Ärztestatistik._
 
-Beschreibung der Auswahl
-
+## Beschreibung der Auswahl für den Datensatz: taetigkeit_facharzt
 1. Auswahl der Tabelle "Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"  auf GBE-Bund.de
-2. Einschränkung auf der Seite "Werteauswahl" auf die Jahre 1998 bis 2018
-3. Einschränkung auf der Seite "Werteauswahl" unter "Tätigkeitsbereiche" auf "mit ärztlicher Tätigkeit"
-4. Einschränkung der Facharztrichtungen
-    1. Wenn "alle Facharztrichtungen" beschrieben sind wurde auf der Seite "Werteauswahl" die folgenden ausgewählt: Allgemeinmedizin, Anästhesiologie, Anatomie, Arbeitsmedizin, Augenheilkunde, Biochemie, Chirurgie, Frauenheilkunde und Geburtshilfe, Hals-Nasen-Ohrenheilkunde, Haut- und Geschlechtskrankheiten, Humangenetik, Hygiene und Umweltmedizin, Innere Medizin, Kinder- und Jugendmedizin, Kinder- und Jugendpsychiatrie und -psychotherapie, Laboratoriumsmedizin, Mikrobiologie Virologie Infektionsepidemiologie, Mund-Kiefer-Gesichtschirurgie, Neurochirurgie, Neurologie, Nuklearmedizin, Öffentliches Gesundheitswesen, Pathologie, Pharmakologie, Physikalische und Rehabilitative Medizin, Physiologie, Psychiatrie und Psychotherapie, Psychosomatische Medizin und Psychotherapie, Radiologie, Rechtsmedizin, Strahlentherapie, Transfusionsmedizin, Urologie
-    2. Wenn "Fachärzte im öffentlichen Gesundheitswesen" beschrieben ist wurde nur auf der Seite "Werteauswahl" ausgewählt: Öffentliches Gesundheitswesen
+1. Nach klick auf "Werteauswahl einblenden" und "Jahr" alle Jahre anklicken oder "Markierung für alle Merkmalsausprägungen" auswählen, dann "Werte übernehmen" anklicken
+1. Unter "Merkmal in Zeilen oder Spalten ändern" die folgenden Einstellungen tätigen: "Gebiets-/Facharztbezeichnung" in Zeile; "Tätigkeitsbereich" in Zeile; "Jahr" in Spalte. Dann auf "Übernehmen" klicken
+1. Abspeichern der Datei als csv mit dem Namen: *taetigkeit_facharzt.csv* und im Ordner "data" abspeichern
+
+## Beschreibung der Auswahl für den Datensatz: region_facharzt
+1. Auswahl der Tabelle "Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"  auf GBE-Bund.de
+1. Nach Klick auf "Werteauswahl einblenden" und "Jahr" alle Jahre anklicken oder "Markierung für alle Merkmalsausprägungen" auswählen, dann "Werte übernehmen" anklicken
+1. Nach Klick auf "Werteauswahl einblenden" und "Darstellung" alle Punkte auswählen, dann "Ausgewählte Merkmalsausprägung (ohne übergeordnete)" auswählen, dann "Werte übernehmen" anklicken
+1. Unter "Merkmal in Zeilen oder Spalten ändern" die folgenden Einstellungen tätigen: "Gebiets-/Facharztbezeichnung" in Zeile; "Region" in Zeile; "Jahr" in Spalte. "Darstellung" auf in Zeile; dann auf "Übernehmen" klicken
+1. Unter "Auswahl einer neuen Merkmalsausprägung" in der Zeile Tätigkeitsbereich den Punkt: "Mit ärztlicher Tätigkeit" auswählen dann "Blattmerkmale aktualisieren" klicken. 
+1. Abspeichern der Datei als csv mit dem Namen: *region_facharzt.csv* und im Ordner "data" abspeichern
+
+
+## Beschreibung der Auswahl für den Datensatz: geschlecht_alter
+1. Auswahl der Tabelle "Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"  auf GBE-Bund.de
+1. Nach Klick auf "Werteauswahl einblenden" und "Jahr" alle Jahre anklicken oder "Markierung für alle Merkmalsausprägungen" auswählen, dann "Ausgewählte Merkmalsausprägung (ohne übergeordnete)" auswählen, dann "Werte übernehmen" anklicken
+1. Nach Klick auf "Werteauswahl einblenden" und "Tätigkeitsbereich" den Wert "mit ärztlicher Tätigkeit2 anklicken dann "Ausgewählte Merkmalsausprägung (ohne übergeordnete)" auswählen, dann "Werte übernehmen" anklicken
+1. Unter "Merkmal in Zeilen oder Spalten ändern" die folgenden Einstellungen tätigen: "Gebiets-/Facharztbezeichnung" in Zeile; "Geschlecht" in Zeile; "Alter" in Zeile; "Jahr" in Spalte. 
+1. Unter "Auswahl einer neuen Merkmalsausprägung" in der Zeile Tätigkeitsbereich den Punkt: "Mit ärztlicher Tätigkeit" auswählen dann "Blattmerkmale aktualisieren" klicken. 
+1. Abspeichern der Datei als csv mit dem Namen: *geschlecht_alter.csv* und im Ordner "data" abspeichern
+
+
+
+
+
+
+
+
+```{r}
+datensatz_taetigkeit_facharzt <- 
+  read_gbe_files(file = "data/taetigkeit_facharzt.csv", variables = c( "Facharzt", "Taetigkeit")) |> 
+  filter(Jahr>as.Date("1998-01-01"))
+
+
+datensatz_region_facharzt_nuroegw <- read_gbe_files(file = "data/region_facharzt.csv", variables = c( "Region", "Facharzt", "Darstellung")) |> 
+  filter(Jahr>as.Date("1998-01-01")) |> 
+  filter(Facharzt == "Öffentliches Gesundheitswesen") |> 
+  filter(Region != "Deutschland") |> 
+  filter(Region != "Neue Länder ohne Berlin-Ost") |> 
+  filter(Region != "Früheres Bundesgebiet, ab 1991 mit Berlin-Ost") |> 
+  filter(Darstellung == "Anzahl Ärzte/Ärztinnen" | Darstellung == "Ärzte/Ärztinnen je 100.000 Einwohner") |>
+  select(Region, Jahr, Darstellung, n)
+
+
+datensatz_geschlecht_alter <- read_gbe_files(file = "data/geschlecht_alter.csv", variables = c( "Alter", "Geschlecht", "Facharzt")) |> 
+  filter(Jahr>as.Date("1998-01-01")) |> 
+  filter(Facharzt == "Öffentliches Gesundheitswesen") |> 
+  filter(Alter != "Alle Altersgruppen") |> 
+  filter(Geschlecht != "Alle Geschlechter") 
+
+
+```
+
+
+
 
 
 # Änderung Gesamtanzahl {.tabset}
-Kummulierte prozentuale Änderung der Anzahl an tätigen Fachärzt/innen von 1998 bis 2018 nach Ärztlicher Tätigkeit unterschieden zwischen Gesamtheit aller Facharztrichtungen, in Behöroden/Körperschaften o.ä. und Öffentliches Gesundheitswesen
+Kummulierte prozentuale Änderung der Anzahl an tätigen Fachärzt/innen von 1998 bis 2023 nach Ärztlicher Tätigkeit unterschieden zwischen Gesamtheit aller Facharztrichtungen, in Behöroden/Körperschaften o.ä. und Öffentliches Gesundheitswesen
 
 ## Abbildung
 ```{r, Abbildung 1}
-data <- read_gbe_files(file = "data/Taetigkeit_Facharzt.csv", variables = c( "Facharzt", "Taetigkeit"))
 
-gesamttaetige <- data |> 
+gesamttaetige <- datensatz_taetigkeit_facharzt |> 
+  # Filter nur die Zeilen für Alle nehmen sonst werden die Personen doppelt gezählt
+  dplyr::filter(Facharzt == "Gebiets-/Facharztbezeichnungen insgesamt (inkl. ohne Gebiet)") |> 
+  # Nur die wirklich tätigen nehmen (und z.B. nicht die Rentner)
   dplyr::filter(Taetigkeit == "Mit ärztlicher Tätigkeit") |> 
   group_by(Jahr) |> 
   summarise(n = sum(n)) |> 
   mutate(aerztliche_taetigkeit = "Gesamt")
   
-behoerdlichetaetige <- data |> 
+behoerdlichetaetige <- datensatz_taetigkeit_facharzt |> 
+  # Filter nur die Zeilen für Alle nehmen sonst werden die Personen doppelt gezählt
+  dplyr::filter(Facharzt == "Gebiets-/Facharztbezeichnungen insgesamt (inkl. ohne Gebiet)") |> 
+  # Filterung für Behörden. Es muss nicht nach "mit ärztlicher Tätigkeit gefilter werden - das ist bei Behörden schon enthalten
   filter(Taetigkeit == "In Behörden/Körperschaften u. a.") |> 
   group_by(Jahr) |> 
   summarise(n = sum(n)) |> 
   mutate(aerztliche_taetigkeit = "In Behörden/Körperschaften u. a.")
 
-oegwtaetige <- data |> 
+oegwtaetige <- datensatz_taetigkeit_facharzt |> 
   filter(Taetigkeit == "Mit ärztlicher Tätigkeit") |> 
   filter(Facharzt == "Öffentliches Gesundheitswesen") |> 
   group_by(Jahr) |> 
   summarise(n = sum(n)) |> 
   mutate(aerztliche_taetigkeit = "Öffentliches Gesundheitswesen")
 
-data <- rbind(oegwtaetige, behoerdlichetaetige, gesamttaetige)
 
-data <- data |> 
+p1 <- rbind(oegwtaetige, behoerdlichetaetige, gesamttaetige) |> 
   arrange(aerztliche_taetigkeit, Jahr) |> 
   group_by(aerztliche_taetigkeit) |> 
   mutate(change = n - lag(n)) |> 
   mutate(change = replace_na(change, 0)) |> 
   mutate(cum_change = cumsum(change)) |>  
   mutate(origin = n - cum_change) |> 
-  mutate(cum_perc_change = (100 * (n - origin)) / origin) 
-
-p1 <- ggplot(data, aes(Jahr, cum_perc_change, group = aerztliche_taetigkeit)) +
+  mutate(cum_perc_change = (100 * (n - origin)) / origin) |> 
+  ggplot(aes(Jahr, cum_perc_change, group = aerztliche_taetigkeit)) +
   geom_line(color='steelblue',aes(linetype = aerztliche_taetigkeit), linewidth = 1.5) +
   theme_bw(base_size = 14) +
   ylab("Kummulierte prozentuale Änderung") +
@@ -157,4 +204,297 @@ p1 <- ggplot(data, aes(Jahr, cum_perc_change, group = aerztliche_taetigkeit)) +
 ggsave(p1, filename = paste0("graphs/", Sys.Date(), "_Abbildung_1.jpg"), device = "jpg", width = 28, height = 14, units = "cm", dpi = 300)
 
 p1
+```
+
+
+## Anteil der Fachärzt/innen ÖGW 
+```{r}
+kable(
+  
+rbind(oegwtaetige, behoerdlichetaetige, gesamttaetige) %>% 
+  mutate(Jahr = paste0("Jahr", strftime(Jahr, format = "%Y"))) %>% 
+  filter(Jahr == max(Jahr)) |> 
+  select("Tätigkeit" = aerztliche_taetigkeit, "Anzahl im Jahr 2023" = n)
+  
+)
+```
+
+
+
+
+# Nach Region {.tabset}
+Bei den Ärztekammern registrierte tätigen Fachärt/innen für Öffentliches Gesundheitswesen nach Region von 1998 bis 2023 in Deutschland
+
+## Abbildung
+```{r, fig2}
+
+g1 <- datensatz_region_facharzt_nuroegw |> 
+  filter(Darstellung == "Anzahl Ärzte/Ärztinnen") |> 
+  ggplot() +
+  aes(x = Jahr, y = n, group = 1) +
+  geom_line(color='steelblue',linewidth = 1.1) +
+  facet_wrap(. ~ Region, scales = "free") +
+  theme_bw(base_size = 14) +
+  ylab("Tätige Fachärzte ÖGW") +
+  theme(axis.text.x  = element_text(angle = 90, vjust = 0)) 
+
+ggsave(g1, filename = paste0("graphs/", Sys.Date(),"_Abbildung_2"), device = "jpg", width = 28, height = 28, units = "cm", dpi = 300)
+
+g1
+```
+
+## Tabelle 
+```{r, Tabelle 2, results='asis'}
+ 
+kable(
+  
+  datensatz_region_facharzt_nuroegw |> 
+      filter(Darstellung == "Anzahl Ärzte/Ärztinnen") |> 
+        spread(key = "Jahr", value = "n")  %>% 
+        mutate(percentageChange = round(((`2023-12-31` * 100)/ `1998-12-31`) - 100,1)) %>% 
+        select(Region, `1998-12-31`, `2023-12-31`, percentageChange) %>% 
+        arrange(percentageChange) %>% 
+        rename(`Verlust in Prozent` = percentageChange) 
+  )
+```
+
+
+## Tabelle Anzahl pro 100.000
+```{r, Tabelle pro100000, results='asis'}
+
+kable(
+  datensatz_region_facharzt_nuroegw |> 
+     filter(Darstellung == "Ärzte/Ärztinnen je 100.000 Einwohner") |> 
+        filter(Jahr == "2023-12-31") %>% 
+        select(Region, n) %>%
+        arrange(n) |> 
+        rename("Anzahl pro 100.000 (2023)" = n) 
+)
+```
+
+
+
+
+
+# Nach Facharztrichtungen {.tabset}
+Bei den Ärztekammern registrierte tätigen Ärztinnen und Ärzte für ausgewählte Facharztrichtungen in Deutschland zwischen 1998 und 2017
+
+## Abbildung 
+```{r}
+
+
+g1 <- datensatz_taetigkeit_facharzt |> 
+  filter(Taetigkeit == "Mit ärztlicher Tätigkeit") |> 
+   filter(Facharzt %in% c("Innere Medizin", "Allgemeinmedizin",  "Chirurgie")) |> 
+  ggplot() +
+  aes(x = Jahr, y = n, group = 1) +
+  geom_line(color='steelblue',size = 1.2) +
+  facet_wrap(. ~ Facharzt) +
+  theme_bw(base_size = 14) +
+  ylab("") +
+  theme(axis.text.x  = element_text(angle = 90, vjust = 0)) +
+  scale_y_continuous(limits = c(0,65000)) 
+  
+
+g2 <- datensatz_taetigkeit_facharzt |> 
+  filter(Taetigkeit == "Mit ärztlicher Tätigkeit") |> 
+   filter(Facharzt %in% c("Öffentliches Gesundheitswesen",
+                            "Hygiene und Umweltmedizin",
+                            "Mikrobiologie, Virologie, Infektionsepidemiologie")) |> 
+  ggplot() +
+  aes(x = Jahr, y = n, group = 1) +
+  geom_line(color='steelblue',size = 1.2) +
+  facet_wrap(. ~ Facharzt) +
+  theme_bw(base_size = 14) +
+  ylab("") +
+  theme(axis.text.x  = element_text(angle = 90, vjust = 0)) +
+  scale_y_continuous(limits = c(0,2000)) 
+
+
+g3 <- cowplot::plot_grid(g1,g2, nrow = 2) 
+
+ggsave(g3, filename = paste0("graphs/", Sys.Date(),"_Abbildung_3"), device = "jpg", width = 28, height = 28, units = "cm", dpi = 300)
+
+g3
+
+
+
+```
+
+## Komprimierte Tabelle
+```{r}
+kable(
+
+datensatz_taetigkeit_facharzt |> 
+  filter(Taetigkeit == "Mit ärztlicher Tätigkeit") |> 
+  filter(Facharzt != "Sonstige Gebiete") |> 
+  filter(Facharzt != "Ohne Gebiet") |> 
+  filter(Facharzt != "Nervenheilkunde") |> 
+  filter(Facharzt != "Gebiets-/Facharztbezeichnungen insgesamt (inkl. ohne Gebiet)") |> 
+ arrange(Facharzt, Jahr) %>% 
+  group_by(Facharzt) %>% 
+  mutate(change = n - lag(n)) %>% 
+  mutate(change = replace_na(change, 0)) %>% 
+  mutate(cum_change = cumsum(change)) %>%  
+  mutate(origin = n - cum_change) %>% 
+  mutate(cum_perc_change = (100 * (n - origin)) / origin) %>% 
+  mutate(cum_perc_change = round(cum_perc_change, 1)) %>% 
+  mutate(Jahreszahl = strftime(Jahr, format = "%Y")) %>% 
+  filter(Jahr == lubridate::ymd("2023-12-31")) %>% 
+  arrange(cum_perc_change) %>% 
+  select(Facharzt, 'Anzahl im Jahr 1998' = origin, 'Anzahl im Jahr 2023' = n, 'Kumulierte prozentuale Änderung' = cum_perc_change)
+)
+
+
+```
+
+
+# Nach Alter {.tabset}
+Bei den Ärztekammern registrierte tätige Ärztinnen und Ärzte mit der Facharztbezeichnung Öffentliches Gesundheitswesen nach Alter in Deutschland von 1998 bis 2023
+
+## Abbildung
+```{r, Abbildung 4}
+g1 <- datensatz_geschlecht_alter |> 
+  group_by(Jahr) |> 
+  mutate(count = sum(n, na.rm = TRUE)) |>  
+  mutate(percent = (n * 100) / count) |> 
+  ggplot() +
+  aes(x = Jahr, y = percent, fill = Alter) +
+  geom_col(position = position_stack(reverse = TRUE)) +
+  theme_bw(base_size = 14) +
+  ylab("Prozentsatz der Altersgruppe von der \n Gesamtanzahl der Fachärzte ÖGW") +
+  #scale_y_discrete(expand = c(0,0)) +
+  theme(axis.text.x  = element_text(angle = 90, vjust = 0),
+        legend.position = "bottom") +
+  scale_fill_brewer(palette = "Blues")
+
+
+ggsave(g1, filename = paste0("graphs/", Sys.Date(),"_Abbildung_4"), device = "jpg", width = 28, height = 28, units = "cm", dpi = 300)
+
+g1
+
+```
+
+## Tabelle 
+```{r}
+df_percent <- datensatz_geschlecht_alter |> 
+  filter(Jahr == "1998-12-31" | Jahr == "2023-12-31")  |> 
+  group_by(Jahr, Alter) |> 
+  summarise(n = sum(n), .groups = "drop")  |> 
+  group_by(Jahr) |> 
+  mutate(total_per_year = sum(n),
+         percent = round(100 * n / total_per_year, 2)) %>%
+  ungroup() |> 
+  arrange(Jahr)
+
+
+ggplot(df_percent, aes(x = Alter, y = percent, fill = as.factor(Jahr))) +
+  geom_col() +
+  facet_wrap(~ Jahr, ncol = 1) +  # one column, two rows
+  scale_fill_manual(values = c("1998-12-31" = "#D55E00", "2023-12-31" = "#0072B2")) +
+  labs(title = "Altersverteilung in %",
+       x = "Alter",
+       y = "Prozent",
+       fill = "Jahr") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
+
+
+# Nach Geschlecht{.tabset}
+
+### Abbildung
+```{r}
+
+df_sex_percent <- datensatz_geschlecht_alter %>%
+  filter(Jahr %in% as.Date(c("1998-12-31", "2023-12-31"))) %>%
+  group_by(Jahr, Geschlecht) %>%
+  summarise(n = sum(n), .groups = "drop") %>%
+  group_by(Jahr) %>%
+  mutate(total_per_year = sum(n),
+         percent = round(100 * n / total_per_year, 2)) %>%
+  ungroup() |> 
+  select(-total_per_year)
+
+
+
+ggplot(df_sex_percent, aes(x = Geschlecht, y = percent, fill = Geschlecht)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~ Jahr, ncol = 1) +  # one column: 1998 on top, 2023 below
+  labs(title = "Altersverteilung nach Geschlecht (%)",
+       x = "Geschlecht",
+       y = "Prozent",
+       fill = "Geschlecht") +
+  theme_minimal() +
+  scale_fill_manual(values = c("Männlich" = "#0072B2", "Weiblich" = "#D55E00")) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+```
+
+
+
+### Tabelle
+```{r}
+kable(df_sex_percent) 
+```
+
+
+
+
+# Alterspyramide
+Bei den Ärztekammern registrierte tätige Ärztinnen und Ärzte mit der Facharztbezeichnung ÖGW nach Geschlecht und Alter (Alterspyramide) in Deutschland von 1998 bis 2023
+
+```{r, Abbildung 5}
+data <- datensatz_geschlecht_alter |> 
+  filter(Facharzt == "Öffentliches Gesundheitswesen") |> 
+  group_by(Geschlecht, Alter, Jahr) |>  
+  summarise(n = sum(n, na.rm = T))
+
+
+g1 <- data |> 
+  filter(Jahr == lubridate::ymd("1998-12-31")) %>% 
+  group_by(Alter, Geschlecht) %>% 
+  tally(wt = n) %>% 
+  mutate(Anzahl = ifelse(Geschlecht == "Männlich", n, -n)) |> 
+  ggplot() + 
+  aes(x = Alter, y = Anzahl , fill = Geschlecht) +
+  geom_bar(stat = "identity") + 
+  scale_y_continuous(limits = c(-320, 320)) +
+  coord_flip() + 
+  theme_bw(base_size = 14) +
+  xlab("Alter Fachärzte ÖGW") +
+  ggtitle("1998") +
+  theme(legend.position = "none") +
+  # scale_x_discrete(position = "right") +
+  scale_fill_brewer(palette = "Blues")
+
+g2 <- data |> 
+  filter(Jahr == lubridate::ymd("2023-12-31")) %>% 
+  group_by(Alter, Geschlecht) %>% 
+  tally(wt = n) %>% 
+  mutate(Anzahl = ifelse(Geschlecht == "Männlich", n, -n)) |> 
+  ggplot() +
+  aes(x = Alter, y = Anzahl , fill = Geschlecht) + 
+  geom_bar(stat = "identity") + 
+  scale_y_continuous(limits = c(-320, 320)) +
+  coord_flip() + 
+  theme_bw(base_size = 14) +
+  xlab("") +
+  ggtitle("2023") +
+  theme(legend.position = "none") +
+  # scale_x_discrete(position = "left") +
+  scale_fill_brewer(palette = "Blues")
+
+
+g_combined <- cowplot::plot_grid(g1, g2)
+
+
+ggsave(g_combined, filename = paste0("graphs/", Sys.Date(),"_Abbildung_5"), device = "jpg", width = 28, height = 28, units = "cm", dpi = 300)
+
+g_combined
+
 ```

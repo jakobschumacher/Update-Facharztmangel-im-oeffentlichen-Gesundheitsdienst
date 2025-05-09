@@ -13,3 +13,6 @@ Haben die Entwicklungen rund um die Coronapandemie die Anzahl an Fachärzten fü
 
 # Methoden
 Die Ärztestatistik basiert auf den Heilberufsgesetzen der Bundesländer, die Ärztekammer-Mitgliedschaft vorschreiben. Die Kammern führen Verzeichnisse ihrer Mitglieder und erstellen jährlich Auswertungen, die an die Bundesärztekammer (BÄK) übermittelt werden. Die BÄK fasst diese Daten zusammen und erstellt eine bundesweite Statistik, die Informationen zu Ärzten mit Gebiets- und Facharztbezeichnungen enthält.
+
+
+# Diskussion
