@@ -1,29 +1,18 @@
 project:
-  type: website
-  output-dir: docs
-
-website:
-  navbar:
-    search: true
-
-title: 'Update Facharztmangel im ÖGD'
-subtitle: "Haben die Entwicklungen rund um die Coronapandemie die Anzahl an Fachärzten für öffentliches Gesundheitswesen erhöht?"
-lang: de
-date: "2025-06-16"
-keywords: Facharzt
-author:
-  - name: Jakob Schumacher
-    affiliations: Robert Koch-Institut
-    affiliation-url: https://rki.de
-    email: schumacherj@rki.de
-    orcid: 0000-0002-9894-6085
-  - name: Peter Tinnemann
-    affiliations: Gesundheitsamt Frankfurt
-    affiliation-url: https://frankfurt.de/service-und-rathaus/verwaltung/aemter-und-institutionen/gesundheitsamt
+  type: manuscript
 
 execute:
-  echo: false
+  freeze: auto
 
 format:
   html:
     toc: true
+    comments:
+      hypothesis: true
+  docx: default
+  elsevier-pdf:
+    journal:
+      formatting: preprint
+      model: 3p
+      layout: twocolumn
+      cite-style: number
