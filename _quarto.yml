@@ -1,6 +1,7 @@
 project:
   type: website
   title: "Update Facharzt ÖGW"
+  output-dir: docs
 
 
 website:
