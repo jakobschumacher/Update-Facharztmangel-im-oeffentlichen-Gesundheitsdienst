@@ -1,1 +1,3 @@
-# Update-Facharztmangel-im-oeffentlichen-Gesundheitsdienst
+# Update Facharzt ÖGW Artikel
+
+[Link zum manuscript](manuscript.qmd)

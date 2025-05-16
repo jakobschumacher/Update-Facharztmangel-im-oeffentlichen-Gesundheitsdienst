@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jakob Schumacher, Peter Tinnemann">
+<meta name="dcterms.date" content="2025-04-04">
+
+<title>Facharztmangel im Öffentlichen Gesundheitsdienst</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="methods_files/libs/clipboard/clipboard.min.js"></script>
+<script src="methods_files/libs/quarto-html/quarto.js"></script>
+<script src="methods_files/libs/quarto-html/popper.min.js"></script>
+<script src="methods_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="methods_files/libs/quarto-html/anchor.min.js"></script>
+<link href="methods_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="methods_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="methods_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="methods_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="methods_files/libs/bootstrap/bootstrap-6e45dd04220042d439da8d8ffe61d53e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Facharztmangel im Öffentlichen Gesundheitsdienst</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jakob Schumacher, Peter Tinnemann </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 4, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="datenquelle" class="level2">
+<h2 class="anchored" data-anchor-id="datenquelle">Datenquelle</h2>
+<p>Die Daten stammen von den Ärztekammern. Sie werden bereitgestellt auf <a href="http://www.gbe-bund.de">http://www.gbe-bund.de</a> unter dem Tabellennamen: <a href="http://www.gbe-bund.de/gbe10/express.prc_expr?p_aid=30416728&amp;p_uid=gast&amp;p_sprachkz=D&amp;p_var=0&amp;nummer=656&amp;p_indsp=&amp;p_ityp=H&amp;p_hlpnr=3&amp;p_lfd_nr=1&amp;p_sprache=D&amp;p_news=&amp;p_janein=J">“Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK”</a></p>
+<p>Beschreibung der Methodik der Statistik der Mitglieder der (Landes-) Ärztekammern (Ärztestatistik) von gbe-bund.de</p>
+<ul>
+<li><em>In den Heilberufsgesetzen der Bundesländer ist festgelegt, dass alle Ärzte, die in einem bestimmten Bundesland tätig sind oder, falls sie ihren Beruf nicht ausüben, ihren gewöhnlichen Aufenthalt haben, Mitglied der jeweiligen (Landes-) Ärztekammer sein müssen. Die Kammern haben über ihre Mitglieder ein Verzeichnis zu führen, in das bestimmte Angaben einzutragen sind. Auf der Basis dieser Mitgliederverzeichnisse erstellen die (Landes-) Ärztekammern zum 31. Dezember jeden Jahres Auswertungen zu ausgewählten Aspekten der Berufspolitik, die sie an die Bundesärztekammer weiterleiten. Die Bundesärztekammer (BÄK), Arbeitsgemeinschaft der deutschen Ärztekammern, ist die Berufsvertretung aller deutschen Ärzte auf Bundesebene. Die Bundesärztekammer fasst diese Meldungen zum Bundesergebnis zusammen und erstellt somit die Ärztestatistik.</em></li>
+</ul>
+</section>
+<section id="beschreibung-der-auswahl-für-den-datensatz-taetigkeit_facharzt" class="level2">
+<h2 class="anchored" data-anchor-id="beschreibung-der-auswahl-für-den-datensatz-taetigkeit_facharzt">Beschreibung der Auswahl für den Datensatz: taetigkeit_facharzt</h2>
+<ol type="1">
+<li>Auswahl der Tabelle “Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK” auf GBE-Bund.de</li>
+<li>Nach klick auf “Werteauswahl einblenden” und “Jahr” alle Jahre anklicken oder “Markierung für alle Merkmalsausprägungen” auswählen, dann “Werte übernehmen” anklicken</li>
+<li>Unter “Merkmal in Zeilen oder Spalten ändern” die folgenden Einstellungen tätigen: “Gebiets-/Facharztbezeichnung” in Zeile; “Tätigkeitsbereich” in Zeile; “Jahr” in Spalte. Dann auf “Übernehmen” klicken</li>
+<li>Abspeichern der Datei als csv mit dem Namen: <em>taetigkeit_facharzt.csv</em> und im Ordner “data” abspeichern</li>
+</ol>
+</section>
+<section id="beschreibung-der-auswahl-für-den-datensatz-region_facharzt" class="level2">
+<h2 class="anchored" data-anchor-id="beschreibung-der-auswahl-für-den-datensatz-region_facharzt">Beschreibung der Auswahl für den Datensatz: region_facharzt</h2>
+<ol type="1">
+<li>Auswahl der Tabelle “Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK” auf GBE-Bund.de</li>
+<li>Nach Klick auf “Werteauswahl einblenden” und “Jahr” alle Jahre anklicken oder “Markierung für alle Merkmalsausprägungen” auswählen, dann “Werte übernehmen” anklicken</li>
+<li>Nach Klick auf “Werteauswahl einblenden” und “Darstellung” alle Punkte auswählen, dann “Ausgewählte Merkmalsausprägung (ohne übergeordnete)” auswählen, dann “Werte übernehmen” anklicken</li>
+<li>Unter “Merkmal in Zeilen oder Spalten ändern” die folgenden Einstellungen tätigen: “Gebiets-/Facharztbezeichnung” in Zeile; “Region” in Zeile; “Jahr” in Spalte. “Darstellung” auf in Zeile; dann auf “Übernehmen” klicken</li>
+<li>Unter “Auswahl einer neuen Merkmalsausprägung” in der Zeile Tätigkeitsbereich den Punkt: “Mit ärztlicher Tätigkeit” auswählen dann “Blattmerkmale aktualisieren” klicken.</li>
+<li>Abspeichern der Datei als csv mit dem Namen: <em>region_facharzt.csv</em> und im Ordner “data” abspeichern</li>
+</ol>
+</section>
+<section id="beschreibung-der-auswahl-für-den-datensatz-geschlecht_alter" class="level2">
+<h2 class="anchored" data-anchor-id="beschreibung-der-auswahl-für-den-datensatz-geschlecht_alter">Beschreibung der Auswahl für den Datensatz: geschlecht_alter</h2>
+<ol type="1">
+<li>Auswahl der Tabelle “Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK” auf GBE-Bund.de</li>
+<li>Nach Klick auf “Werteauswahl einblenden” und “Jahr” alle Jahre anklicken oder “Markierung für alle Merkmalsausprägungen” auswählen, dann “Ausgewählte Merkmalsausprägung (ohne übergeordnete)” auswählen, dann “Werte übernehmen” anklicken</li>
+<li>Nach Klick auf “Werteauswahl einblenden” und “Tätigkeitsbereich” den Wert “mit ärztlicher Tätigkeit2 anklicken dann”Ausgewählte Merkmalsausprägung (ohne übergeordnete)” auswählen, dann “Werte übernehmen” anklicken</li>
+<li>Unter “Merkmal in Zeilen oder Spalten ändern” die folgenden Einstellungen tätigen: “Gebiets-/Facharztbezeichnung” in Zeile; “Geschlecht” in Zeile; “Alter” in Zeile; “Jahr” in Spalte.</li>
+<li>Unter “Auswahl einer neuen Merkmalsausprägung” in der Zeile Tätigkeitsbereich den Punkt: “Mit ärztlicher Tätigkeit” auswählen dann “Blattmerkmale aktualisieren” klicken.</li>
+<li>Abspeichern der Datei als csv mit dem Namen: <em>geschlecht_alter.csv</em> und im Ordner “data” abspeichern</li>
+</ol>
+</section>
+<section id="ergebnisse" class="level1">
+<h1>Ergebnisse</h1>
+<section id="änderung-gesamtanzahl" class="level2 tabset">
+<h2 class="tabset anchored" data-anchor-id="änderung-gesamtanzahl">Änderung Gesamtanzahl</h2>
+<p>Kummulierte prozentuale Änderung der Anzahl an tätigen Fachärzt/innen von 1998 bis 2023 nach Ärztlicher Tätigkeit unterschieden zwischen Gesamtheit aller Facharztrichtungen, in Behöroden/Körperschaften o.ä. und Öffentliches Gesundheitswesen</p>
+<section id="abbildung" class="level3">
+<h3 class="anchored" data-anchor-id="abbildung">Abbildung</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="methods_files/figure-html/Abbildung%201-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="anteil-der-fachärztinnen-ögw" class="level3">
+<h3 class="anchored" data-anchor-id="anteil-der-fachärztinnen-ögw">Anteil der Fachärzt/innen ÖGW</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tätigkeit</th>
+<th style="text-align: right;">Anzahl im Jahr 2023</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Öffentliches Gesundheitswesen</td>
+<td style="text-align: right;">724</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">In Behörden/Körperschaften u. a.</td>
+<td style="text-align: right;">11700</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gesamt</td>
+<td style="text-align: right;">428417</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="nach-region" class="level2 tabset">
+<h2 class="tabset anchored" data-anchor-id="nach-region">Nach Region</h2>
+<p>Bei den Ärztekammern registrierte tätigen Fachärt/innen für Öffentliches Gesundheitswesen nach Region von 1998 bis 2023 in Deutschland</p>
+<section id="abbildung-1" class="level3">
+<h3 class="anchored" data-anchor-id="abbildung-1">Abbildung</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="methods_files/figure-html/fig2-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tabelle" class="level3">
+<h3 class="anchored" data-anchor-id="tabelle">Tabelle</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Region</th>
+<th style="text-align: right;">1998-12-31</th>
+<th style="text-align: right;">2023-12-31</th>
+<th style="text-align: right;">Verlust in Prozent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Saarland</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">-68.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sachsen-Anhalt</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">-64.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Thüringen</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">-63.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nordrhein-Westfalen</td>
+<td style="text-align: right;">221</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">-54.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Schleswig-Holstein</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">-48.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mecklenburg-Vorpommern</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">-44.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hamburg</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">-44.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Berlin</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">-40.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Baden-Württemberg</td>
+<td style="text-align: right;">165</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">-35.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bremen</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">-33.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Niedersachsen</td>
+<td style="text-align: right;">122</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">-18.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brandenburg</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">-15.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rheinland-Pfalz</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">-13.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sachsen</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">-6.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bayern</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hessen</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">3.2</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabelle-anzahl-pro-100.000" class="level3">
+<h3 class="anchored" data-anchor-id="tabelle-anzahl-pro-100.000">Tabelle Anzahl pro 100.000</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Region</th>
+<th style="text-align: right;">Anzahl pro 100.000 (2023)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Saarland</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nordrhein-Westfalen</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Thüringen</td>
+<td style="text-align: right;">0.61</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sachsen-Anhalt</td>
+<td style="text-align: right;">0.64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bayern</td>
+<td style="text-align: right;">0.76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hamburg</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bremen</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Schleswig-Holstein</td>
+<td style="text-align: right;">0.91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Berlin</td>
+<td style="text-align: right;">0.93</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Baden-Württemberg</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mecklenburg-Vorpommern</td>
+<td style="text-align: right;">0.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hessen</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brandenburg</td>
+<td style="text-align: right;">1.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rheinland-Pfalz</td>
+<td style="text-align: right;">1.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sachsen</td>
+<td style="text-align: right;">1.15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Niedersachsen</td>
+<td style="text-align: right;">1.21</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="nach-facharztrichtungen" class="level2 tabset">
+<h2 class="tabset anchored" data-anchor-id="nach-facharztrichtungen">Nach Facharztrichtungen</h2>
+<p>Bei den Ärztekammern registrierte tätigen Ärztinnen und Ärzte für ausgewählte Facharztrichtungen in Deutschland zwischen 1998 und 2017</p>
+<section id="abbildung-2" class="level3">
+<h3 class="anchored" data-anchor-id="abbildung-2">Abbildung</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="methods_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tabelle-1" class="level3">
+<h3 class="anchored" data-anchor-id="tabelle-1">Tabelle</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Facharzt</th>
+<th style="text-align: right;">Anzahl im Jahr 1998</th>
+<th style="text-align: right;">Anzahl im Jahr 2023</th>
+<th style="text-align: right;">Kumulierte prozentuale Änderung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Biochemie</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">-64.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Öffentliches Gesundheitswesen</td>
+<td style="text-align: right;">1072</td>
+<td style="text-align: right;">724</td>
+<td style="text-align: right;">-32.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pharmakologie</td>
+<td style="text-align: right;">492</td>
+<td style="text-align: right;">355</td>
+<td style="text-align: right;">-27.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Physiologie</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">-26.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Anatomie</td>
+<td style="text-align: right;">134</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">-24.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hygiene und Umweltmedizin</td>
+<td style="text-align: right;">289</td>
+<td style="text-align: right;">246</td>
+<td style="text-align: right;">-14.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Allgemeinmedizin</td>
+<td style="text-align: right;">35599</td>
+<td style="text-align: right;">44912</td>
+<td style="text-align: right;">26.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hals-Nasen-Ohrenheilkunde</td>
+<td style="text-align: right;">5172</td>
+<td style="text-align: right;">6607</td>
+<td style="text-align: right;">27.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Augenheilkunde</td>
+<td style="text-align: right;">6305</td>
+<td style="text-align: right;">8135</td>
+<td style="text-align: right;">29.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Laboratoriumsmedizin</td>
+<td style="text-align: right;">924</td>
+<td style="text-align: right;">1206</td>
+<td style="text-align: right;">30.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rechtsmedizin</td>
+<td style="text-align: right;">220</td>
+<td style="text-align: right;">298</td>
+<td style="text-align: right;">35.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Frauenheilkunde und Geburtshilfe</td>
+<td style="text-align: right;">14327</td>
+<td style="text-align: right;">19530</td>
+<td style="text-align: right;">36.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Psychosomatische Medizin und Psychotherapie</td>
+<td style="text-align: right;">2872</td>
+<td style="text-align: right;">4046</td>
+<td style="text-align: right;">40.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mikrobiologie, Virologie, Infektionsepidemiologie</td>
+<td style="text-align: right;">587</td>
+<td style="text-align: right;">845</td>
+<td style="text-align: right;">44.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pathologie</td>
+<td style="text-align: right;">1314</td>
+<td style="text-align: right;">1892</td>
+<td style="text-align: right;">44.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Physikalische und Rehabilitative Medizin</td>
+<td style="text-align: right;">1303</td>
+<td style="text-align: right;">1879</td>
+<td style="text-align: right;">44.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Transfusionsmedizin</td>
+<td style="text-align: right;">381</td>
+<td style="text-align: right;">551</td>
+<td style="text-align: right;">44.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Haut- und Geschlechtskrankheiten</td>
+<td style="text-align: right;">4429</td>
+<td style="text-align: right;">6511</td>
+<td style="text-align: right;">47.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kinder- und Jugendmedizin</td>
+<td style="text-align: right;">11044</td>
+<td style="text-align: right;">16802</td>
+<td style="text-align: right;">52.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Arbeitsmedizin</td>
+<td style="text-align: right;">2614</td>
+<td style="text-align: right;">4101</td>
+<td style="text-align: right;">56.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Urologie</td>
+<td style="text-align: right;">4186</td>
+<td style="text-align: right;">6624</td>
+<td style="text-align: right;">58.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nuklearmedizin</td>
+<td style="text-align: right;">724</td>
+<td style="text-align: right;">1240</td>
+<td style="text-align: right;">71.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Radiologie</td>
+<td style="text-align: right;">5725</td>
+<td style="text-align: right;">9938</td>
+<td style="text-align: right;">73.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chirurgie</td>
+<td style="text-align: right;">23113</td>
+<td style="text-align: right;">41233</td>
+<td style="text-align: right;">78.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Innere Medizin</td>
+<td style="text-align: right;">34653</td>
+<td style="text-align: right;">61899</td>
+<td style="text-align: right;">78.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mund-Kiefer-Gesichtschirurgie</td>
+<td style="text-align: right;">1048</td>
+<td style="text-align: right;">1903</td>
+<td style="text-align: right;">81.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Anästhesiologie</td>
+<td style="text-align: right;">13779</td>
+<td style="text-align: right;">27572</td>
+<td style="text-align: right;">100.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Humangenetik</td>
+<td style="text-align: right;">151</td>
+<td style="text-align: right;">410</td>
+<td style="text-align: right;">171.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Neurochirurgie</td>
+<td style="text-align: right;">867</td>
+<td style="text-align: right;">2713</td>
+<td style="text-align: right;">212.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kinder- und Jugendpsychiatrie und -psychotherapie</td>
+<td style="text-align: right;">910</td>
+<td style="text-align: right;">2855</td>
+<td style="text-align: right;">213.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Psychiatrie und Psychotherapie</td>
+<td style="text-align: right;">3760</td>
+<td style="text-align: right;">12957</td>
+<td style="text-align: right;">244.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Strahlentherapie</td>
+<td style="text-align: right;">457</td>
+<td style="text-align: right;">1609</td>
+<td style="text-align: right;">252.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Neurologie</td>
+<td style="text-align: right;">1961</td>
+<td style="text-align: right;">9636</td>
+<td style="text-align: right;">391.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="nach-alter" class="level2 tabset">
+<h2 class="tabset anchored" data-anchor-id="nach-alter">Nach Alter</h2>
+<p>Bei den Ärztekammern registrierte tätige Ärztinnen und Ärzte mit der Facharztbezeichnung Öffentliches Gesundheitswesen nach Alter in Deutschland von 1998 bis 2023</p>
+<section id="abbildung-3" class="level3">
+<h3 class="anchored" data-anchor-id="abbildung-3">Abbildung</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="methods_files/figure-html/Abbildung%204-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tabelle-2" class="level3">
+<h3 class="anchored" data-anchor-id="tabelle-2">Tabelle</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="methods_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="nach-geschlecht" class="level2 tabset">
+<h2 class="tabset anchored" data-anchor-id="nach-geschlecht">Nach Geschlecht</h2>
+<section id="abbildung-4" class="level3">
+<h3 class="anchored" data-anchor-id="abbildung-4">Abbildung</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="methods_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tabelle-3" class="level3">
+<h3 class="anchored" data-anchor-id="tabelle-3">Tabelle</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Jahr</th>
+<th style="text-align: left;">Geschlecht</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1998-12-31</td>
+<td style="text-align: left;">Männlich</td>
+<td style="text-align: right;">614</td>
+<td style="text-align: right;">57.28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1998-12-31</td>
+<td style="text-align: left;">Weiblich</td>
+<td style="text-align: right;">458</td>
+<td style="text-align: right;">42.72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2023-12-31</td>
+<td style="text-align: left;">Männlich</td>
+<td style="text-align: right;">316</td>
+<td style="text-align: right;">43.65</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-12-31</td>
+<td style="text-align: left;">Weiblich</td>
+<td style="text-align: right;">408</td>
+<td style="text-align: right;">56.35</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="alterspyramide" class="level2">
+<h2 class="anchored" data-anchor-id="alterspyramide">Alterspyramide</h2>
+<p>Bei den Ärztekammern registrierte tätige Ärztinnen und Ärzte mit der Facharztbezeichnung ÖGW nach Geschlecht und Alter (Alterspyramide) in Deutschland von 1998 bis 2023</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="methods_files/figure-html/Abbildung%205-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -3,12 +3,7 @@ title: 'Facharztmangel im Öffentlichen Gesundheitsdienst'
 author: "Jakob Schumacher, Peter Tinnemann"
 date: "04. April 2025"
 output:
-  html_document: 
-    theme: flat
-    toc: true
-    toc_depth: 1
   pdf_document: default
-  word_document: default
 ---
 
 
@@ -19,6 +14,9 @@ pacman::p_load(tidyverse, ggthemes, plotly, gridExtra, knitr, lubridate)
 
 
 ```{r function, echo=FALSE}
+#| fig-cap: 
+#|   - "Speed and Stopping Distances of Cars"
+#|   - "Vapor Pressure of Mercury as a Function of Temperature"
 read_gbe_files <- function(file, variables) {
   file_path <- file
 
@@ -83,7 +81,7 @@ read_gbe_files <- function(file, variables) {
 }
 ```
 
-# Datenquelle
+## Datenquelle
 
 Die Daten stammen von den Ärztekammern. Sie werden bereitgestellt auf [http://www.gbe-bund.de](http://www.gbe-bund.de) unter dem Tabellennamen: ["Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"](http://www.gbe-bund.de/gbe10/express.prc_expr?p_aid=30416728&p_uid=gast&p_sprachkz=D&p_var=0&nummer=656&p_indsp=&p_ityp=H&p_hlpnr=3&p_lfd_nr=1&p_sprache=D&p_news=&p_janein=J) 
 
@@ -91,13 +89,13 @@ Beschreibung der Methodik der Statistik der Mitglieder der (Landes-) Ärztekamme
 
 * _In den Heilberufsgesetzen der Bundesländer ist festgelegt, dass alle Ärzte, die in einem bestimmten Bundesland tätig sind oder, falls sie ihren Beruf nicht ausüben, ihren gewöhnlichen Aufenthalt haben, Mitglied der jeweiligen (Landes-) Ärztekammer sein müssen. Die Kammern haben über ihre Mitglieder ein Verzeichnis zu führen, in das bestimmte Angaben einzutragen sind. Auf der Basis dieser Mitgliederverzeichnisse erstellen die (Landes-) Ärztekammern zum 31. Dezember jeden Jahres Auswertungen zu ausgewählten Aspekten der Berufspolitik, die sie an die Bundesärztekammer weiterleiten. Die Bundesärztekammer (BÄK), Arbeitsgemeinschaft der deutschen Ärztekammern, ist die Berufsvertretung aller deutschen Ärzte auf Bundesebene. Die Bundesärztekammer fasst diese Meldungen zum Bundesergebnis zusammen und erstellt somit die Ärztestatistik._
 
-## Beschreibung der Auswahl für den Datensatz: taetigkeit_facharzt
+Klick-Beschreibung der Auswahl für den Datensatz: taetigkeit_facharzt
 1. Auswahl der Tabelle "Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"  auf GBE-Bund.de
 1. Nach klick auf "Werteauswahl einblenden" und "Jahr" alle Jahre anklicken oder "Markierung für alle Merkmalsausprägungen" auswählen, dann "Werte übernehmen" anklicken
 1. Unter "Merkmal in Zeilen oder Spalten ändern" die folgenden Einstellungen tätigen: "Gebiets-/Facharztbezeichnung" in Zeile; "Tätigkeitsbereich" in Zeile; "Jahr" in Spalte. Dann auf "Übernehmen" klicken
 1. Abspeichern der Datei als csv mit dem Namen: *taetigkeit_facharzt.csv* und im Ordner "data" abspeichern
 
-## Beschreibung der Auswahl für den Datensatz: region_facharzt
+Klick-Beschreibung der Auswahl für den Datensatz: region_facharzt
 1. Auswahl der Tabelle "Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"  auf GBE-Bund.de
 1. Nach Klick auf "Werteauswahl einblenden" und "Jahr" alle Jahre anklicken oder "Markierung für alle Merkmalsausprägungen" auswählen, dann "Werte übernehmen" anklicken
 1. Nach Klick auf "Werteauswahl einblenden" und "Darstellung" alle Punkte auswählen, dann "Ausgewählte Merkmalsausprägung (ohne übergeordnete)" auswählen, dann "Werte übernehmen" anklicken
@@ -106,7 +104,7 @@ Beschreibung der Methodik der Statistik der Mitglieder der (Landes-) Ärztekamme
 1. Abspeichern der Datei als csv mit dem Namen: *region_facharzt.csv* und im Ordner "data" abspeichern
 
 
-## Beschreibung der Auswahl für den Datensatz: geschlecht_alter
+Klick-Beschreibung der Auswahl für den Datensatz: geschlecht_alter
 1. Auswahl der Tabelle "Ärztinnen und Ärzte mit Gebiets- und Facharztbezeichnung, BÄK"  auf GBE-Bund.de
 1. Nach Klick auf "Werteauswahl einblenden" und "Jahr" alle Jahre anklicken oder "Markierung für alle Merkmalsausprägungen" auswählen, dann "Ausgewählte Merkmalsausprägung (ohne übergeordnete)" auswählen, dann "Werte übernehmen" anklicken
 1. Nach Klick auf "Werteauswahl einblenden" und "Tätigkeitsbereich" den Wert "mit ärztlicher Tätigkeit2 anklicken dann "Ausgewählte Merkmalsausprägung (ohne übergeordnete)" auswählen, dann "Werte übernehmen" anklicken
@@ -117,7 +115,7 @@ Beschreibung der Methodik der Statistik der Mitglieder der (Landes-) Ärztekamme
 
 
 
-
+# Ergebnisse
 
 
 
@@ -148,12 +146,10 @@ datensatz_geschlecht_alter <- read_gbe_files(file = "data/geschlecht_alter.csv",
 
 
 
-
-
-# Änderung Gesamtanzahl {.tabset}
+## Änderung Gesamtanzahl {.tabset}
 Kummulierte prozentuale Änderung der Anzahl an tätigen Fachärzt/innen von 1998 bis 2023 nach Ärztlicher Tätigkeit unterschieden zwischen Gesamtheit aller Facharztrichtungen, in Behöroden/Körperschaften o.ä. und Öffentliches Gesundheitswesen
 
-## Abbildung
+### Abbildung
 ```{r, Abbildung 1}
 
 gesamttaetige <- datensatz_taetigkeit_facharzt |> 
@@ -207,7 +203,7 @@ p1
 ```
 
 
-## Anteil der Fachärzt/innen ÖGW 
+### Anteil der Fachärzt/innen ÖGW 
 ```{r}
 kable(
   
@@ -222,10 +218,10 @@ rbind(oegwtaetige, behoerdlichetaetige, gesamttaetige) %>%
 
 
 
-# Nach Region {.tabset}
+## Nach Region {.tabset}
 Bei den Ärztekammern registrierte tätigen Fachärt/innen für Öffentliches Gesundheitswesen nach Region von 1998 bis 2023 in Deutschland
 
-## Abbildung
+### Abbildung
 ```{r, fig2}
 
 g1 <- datensatz_region_facharzt_nuroegw |> 
@@ -243,7 +239,7 @@ ggsave(g1, filename = paste0("graphs/", Sys.Date(),"_Abbildung_2"), device = "jp
 g1
 ```
 
-## Tabelle 
+### Tabelle 
 ```{r, Tabelle 2, results='asis'}
  
 kable(
@@ -259,7 +255,7 @@ kable(
 ```
 
 
-## Tabelle Anzahl pro 100.000
+### Tabelle Anzahl pro 100.000
 ```{r, Tabelle pro100000, results='asis'}
 
 kable(
@@ -276,10 +272,10 @@ kable(
 
 
 
-# Nach Facharztrichtungen {.tabset}
+## Nach Facharztrichtungen {.tabset}
 Bei den Ärztekammern registrierte tätigen Ärztinnen und Ärzte für ausgewählte Facharztrichtungen in Deutschland zwischen 1998 und 2017
 
-## Abbildung 
+### Abbildung 
 ```{r}
 
 
@@ -321,7 +317,7 @@ g3
 
 ```
 
-## Komprimierte Tabelle
+### Tabelle
 ```{r}
 kable(
 
@@ -349,10 +345,10 @@ datensatz_taetigkeit_facharzt |>
 ```
 
 
-# Nach Alter {.tabset}
+## Nach Alter {.tabset}
 Bei den Ärztekammern registrierte tätige Ärztinnen und Ärzte mit der Facharztbezeichnung Öffentliches Gesundheitswesen nach Alter in Deutschland von 1998 bis 2023
 
-## Abbildung
+### Abbildung über Zeit
 ```{r, Abbildung 4}
 g1 <- datensatz_geschlecht_alter |> 
   group_by(Jahr) |> 
@@ -375,7 +371,7 @@ g1
 
 ```
 
-## Tabelle 
+### Abbildung Jahresvergleich 
 ```{r}
 df_percent <- datensatz_geschlecht_alter |> 
   filter(Jahr == "1998-12-31" | Jahr == "2023-12-31")  |> 
@@ -403,8 +399,15 @@ ggplot(df_percent, aes(x = Alter, y = percent, fill = as.factor(Jahr))) +
 
 
 
+### Tabelle
+```{r}
+kable(
+  df_percent
+)
+```
 
-# Nach Geschlecht{.tabset}
+
+## Nach Geschlecht{.tabset}
 
 ### Abbildung
 ```{r}
@@ -445,7 +448,7 @@ kable(df_sex_percent)
 
 
 
-# Alterspyramide
+## Alterspyramide
 Bei den Ärztekammern registrierte tätige Ärztinnen und Ärzte mit der Facharztbezeichnung ÖGW nach Geschlecht und Alter (Alterspyramide) in Deutschland von 1998 bis 2023
 
 ```{r, Abbildung 5}

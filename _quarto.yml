@@ -1,0 +1,16 @@
+project:
+  type: website
+  title: "Update Facharzt ÖGW"
+
+
+website:
+  navbar:
+    search: true
+
+
+execute:
+  echo: false
+
+format:
+  html:
+    toc: true
